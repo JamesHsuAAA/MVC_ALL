@@ -4,12 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [RoutePrefix("api/values")]
     public class ValuesController : ApiController
     {
+        private ITest Test;
+        public ValuesController(ITest test)
+        {
+            this.Test = test;
+        }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -20,6 +28,18 @@ namespace WebApplication1.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+
+        [Route("GetTest1")]
+        public string GetTest1()
+        {
+            return Test.test1();
+        }
+
+        [Route("GetTest2")]
+        public string GetTest2()
+        {
+            return Test.test2();
         }
 
         // POST api/values
